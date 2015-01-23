@@ -1,7 +1,11 @@
-## Put comments here that give an overall description of what your
-## functions do
+## The following function pair may be used to cache the results of a calculation
+## to invert a given matrix, a potentially time consuming operation, and then 
+## enable it to be looked up
+## The caching operation uses the lexical scoping rules of R to preserve state.
+## It is assumeed that the matrix is invertible.
 
-## Write a short comment describing this function
+## The makeCacheMatrix function creates a special "matrix" object that can
+## be used to cache its inverse.
 
 makeCacheMatrix <- function(x = matrix()) {
         m <- NULL                               # Establish m in makeCacheMatrix's environment. Otherwise m would have define m globally. Resets the process.
@@ -18,10 +22,16 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## The cacheSolve function calculates the inverse of the matrix object created
+## by the above makeCacheMatrix function. It first checks to see if 
+## the inverse has already been calculated; if so, it gets the inverse of the
+## matrix from the cache and does not need to calculate it. Otherwise it
+## calculates the inverse of the data and sets the cache to the inverse of the 
+## matrix.
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+        # quotThe inverted matrix is cached by the use of lexical scoping, with the environment created for each instantiation of makeCacheMatrix.
         m <- x$getinverse()                     # First set m to the existing value returned from getinverse function above
         if(!is.null(m)) {                       # Check if inverted matrix has been already cached. If not NIULL there is a value stored in m so return it
                 message("getting cached data")  # If so, provide message about cache, and
