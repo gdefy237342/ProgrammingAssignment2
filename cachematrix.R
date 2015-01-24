@@ -61,8 +61,9 @@ cacheSolve <- function(x, ...) {
         ## the aid of lexical scoping, with an environment created for each
         ## use of makeCacheMatrix.
         i <- x$getinverse()
-        ## Check if an inverted matrix has been already cached. If i is NULL
-        ## there is a value stored in i so return it, skipping the calculation.
+        ## Check if an inverted matrix has been already cached. If i is not NULL
+        ## there is an inverse matrix cached in i so return it, skipping the
+        ## calculation.
         if(!is.null(i)) {
                 ## As cache has been loaded, provide message about cache. 
                 message("getting cached data")
